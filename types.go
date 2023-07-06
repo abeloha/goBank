@@ -3,21 +3,28 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"time"
 )
 
-type Account struct {
-	ID        int    `json:"id"`
+type CreateAccountRequestModel struct {
 	FirstName string `json:"first_name"`
 	LastName  string `json:"last_name"`
-	Number    string `json:"number"`
-	Balance   int64  `json:"balance"`
 }
 
-func NewAccount(FirstName, LastName string) *Account {
+type Account struct {
+	ID        int       `json:"id"`
+	FirstName string    `json:"first_name"`
+	LastName  string    `json:"last_name"`
+	Number    string    `json:"number"`
+	Balance   int64     `json:"balance"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
+func NewAccount(data CreateAccountRequestModel) *Account {
 	return &Account{
-		ID:        rand.Intn(10000),
-		FirstName: FirstName,
-		LastName:  LastName,
+		FirstName: data.FirstName,
+		LastName:  data.LastName,
 		Number:    fmt.Sprint(rand.Intn(100000000)),
+		CreatedAt: time.Now().UTC(),
 	}
 }
