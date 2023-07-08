@@ -130,9 +130,12 @@ func scanRows(rows *sql.Rows) (*Account, error) {
 	return &account, err
 }
 
-func NewPostgreStore(user, dbname, password string) (*PostgreStore, error) {
+func NewPostgreStore(dbuser, dbname, dbpassword string) (*PostgreStore, error) {
 
-	connStr := fmt.Sprintf("user=%s dbname=%s password=%s sslmode=disable", user, dbname, password)
+	if dbpassword == "" {
+		dbpassword = "''"
+	}
+	connStr := fmt.Sprintf("user=%s dbname=%s password=%s sslmode=disable", dbuser, dbname, dbpassword)
 	fmt.Println(connStr)
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {

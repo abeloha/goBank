@@ -11,6 +11,12 @@ type CreateAccountRequestModel struct {
 	LastName  string `json:"last_name"`
 }
 
+type TransferRequestModel struct {
+	AccountNumber string `json:"account_number"`
+	Amount        int    `json:"amount"`
+	Remarks       string `json:"remarks"`
+}
+
 type Account struct {
 	ID        int       `json:"id"`
 	FirstName string    `json:"first_name"`
